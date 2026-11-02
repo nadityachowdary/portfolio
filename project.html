@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#060a13" />
+  <meta name="description" content="Project case study — how it works, the architecture, and an interactive in-browser demo." />
+  <title>Project — Nallamothu Aditya Chowdary</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Sora:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="project.css" />
+</head>
+<body class="detail-page">
+  <a class="skip-link" href="#project-root">Skip to content</a>
+
+  <div class="site-bg" aria-hidden="true">
+    <div class="orb orb--1"></div>
+    <div class="orb orb--2"></div>
+    <div class="grid-overlay"></div>
+  </div>
+
+  <header class="nav-wrap">
+    <nav class="nav container" aria-label="Primary">
+      <a href="index.html" class="brand" aria-label="Back to portfolio">
+        <span class="brand-mark">NA</span>
+        <span class="brand-text">Aditya Chowdary</span>
+      </a>
+      <div class="detail-nav-actions">
+        <a href="index.html#projects" class="nav-link">All projects</a>
+        <a href="index.html#contact" class="btn btn--small">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="project-root" class="detail container">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="index.html">Home</a>
+      <span>/</span>
+      <a href="index.html#projects">Projects</a>
+      <span>/</span>
+      <span id="crumb" aria-current="page">Project</span>
+    </nav>
+
+    <section class="detail-hero" id="detail-hero"></section>
+
+    <div class="detail-layout">
+      <aside class="detail-aside" id="detail-aside" aria-label="Project facts"></aside>
+      <div class="detail-content" id="detail-content"></div>
+    </div>
+
+    <nav class="project-pager" id="project-pager" aria-label="Project navigation"></nav>
+  </main>
+
+  <footer class="footer container">
+    <div class="footer-inner">
+      <a href="index.html" class="brand"><span class="brand-mark">NA</span><span class="brand-text">Nallamothu Aditya Chowdary</span></a>
+      <p>Built with vanilla HTML, CSS &amp; JavaScript.</p>
+      <p class="copyright">© <span id="year">2026</span> Nallamothu Aditya Chowdary. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="project.js"></script>
+</body>
+</html>
