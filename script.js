@@ -78,21 +78,60 @@ const form = document.querySelector(".contact-form");
 const formNote = document.querySelector(".form-note");
 
 const CONTACT_EMAIL = "adithyachowdaryNallamothu@gmail.com";
+const CONTACT_ENDPOINT = `https://flowform.to/${CONTACT_EMAIL}`;
 
-form.addEventListener("submit", (event) => {
+form.addEventListener("submit", async (event) => {
   event.preventDefault();
   const name = form.querySelector("#name").value.trim();
   const email = form.querySelector("#email").value.trim();
   const message = form.querySelector("#message").value.trim();
+  const submitButton = form.querySelector('button[type="submit"]');
+  const originalLabel = submitButton.textContent;
 
   const subject = `Portfolio enquiry from ${name}`;
-  const body = `Name: ${name}\nEmail: ${email}\n\n${message}`;
+  const bodyText = `Name: ${name}\nEmail: ${email}\n\n${message}`;
   const encodedSubject = encodeURIComponent(subject);
-  const encodedBody = encodeURIComponent(body);
+  const encodedBody = encodeURIComponent(bodyText);
   const mailto = `mailto:${CONTACT_EMAIL}?subject=${encodedSubject}&body=${encodedBody}`;
   const gmail = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(CONTACT_EMAIL)}&su=${encodedSubject}&body=${encodedBody}`;
 
-  formNote.innerHTML = `Thanks${name ? `, ${name}` : ""}! Choose how to send: <a href="${mailto}">open your email app</a> or <a href="${gmail}" target="_blank" rel="noopener">send with Gmail</a>.`;
+  formNote.classList.remove("is-error");
+  formNote.classList.add("is-pending");
+  formNote.textContent = "Sending your message...";
+  submitButton.disabled = true;
+  submitButton.textContent = "Sending...";
+
+  try {
+    const payload = new URLSearchParams(new FormData(form));
+    payload.set("_subject", subject);
+    payload.set("_replyto", email);
+    payload.set("_next", `${window.location.href.split("#")[0]}#contact`);
+
+    const response = await fetch(CONTACT_ENDPOINT, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: payload.toString(),
+    });
+    const data = await response.json().catch(() => ({}));
+
+    if (!response.ok || data.success !== true) {
+      throw new Error(data.message || "Message could not be sent");
+    }
+
+    formNote.classList.remove("is-pending");
+    formNote.textContent = `Thanks${name ? `, ${name}` : ""}! Your message was sent directly to my inbox.`;
+    form.reset();
+  } catch (error) {
+    formNote.classList.remove("is-pending");
+    formNote.classList.add("is-error");
+    formNote.innerHTML = `Couldn't send automatically. <a href="${mailto}">Open your email app</a> or <a href="${gmail}" target="_blank" rel="noopener">send with Gmail</a>.`;
+  } finally {
+    submitButton.disabled = false;
+    submitButton.textContent = originalLabel;
+  }
 });
 
 document.getElementById("year").textContent = new Date().getFullYear();

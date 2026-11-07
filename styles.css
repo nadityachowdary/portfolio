@@ -834,6 +834,8 @@ a.cover { color: inherit; }
   text-underline-offset: 3px;
 }
 .form-note a:hover { color: #a5f3fc; }
+.form-note.is-pending { color: var(--muted); }
+.form-note.is-error { color: #fca5a5; }
 
 /* Footer */
 .footer { padding: 70px 0 40px; }
