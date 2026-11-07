@@ -77,11 +77,22 @@ sections.forEach((section) => sectionObserver.observe(section));
 const form = document.querySelector(".contact-form");
 const formNote = document.querySelector(".form-note");
 
+const CONTACT_EMAIL = "adithyachowdaryNallamothu@gmail.com";
+
 form.addEventListener("submit", (event) => {
   event.preventDefault();
   const name = form.querySelector("#name").value.trim();
-  formNote.textContent = `Thanks${name ? `, ${name}` : ""}! Your message is ready — connect this form to Formspree or your backend to send it.`;
-  form.reset();
+  const email = form.querySelector("#email").value.trim();
+  const message = form.querySelector("#message").value.trim();
+
+  const subject = `Portfolio enquiry from ${name}`;
+  const body = `Name: ${name}\nEmail: ${email}\n\n${message}`;
+  const encodedSubject = encodeURIComponent(subject);
+  const encodedBody = encodeURIComponent(body);
+  const mailto = `mailto:${CONTACT_EMAIL}?subject=${encodedSubject}&body=${encodedBody}`;
+  const gmail = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(CONTACT_EMAIL)}&su=${encodedSubject}&body=${encodedBody}`;
+
+  formNote.innerHTML = `Thanks${name ? `, ${name}` : ""}! Choose how to send: <a href="${mailto}">open your email app</a> or <a href="${gmail}" target="_blank" rel="noopener">send with Gmail</a>.`;
 });
 
 document.getElementById("year").textContent = new Date().getFullYear();

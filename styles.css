@@ -827,6 +827,13 @@ a.cover { color: inherit; }
   font-size: 0.8rem;
   color: var(--green);
 }
+.form-note a {
+  color: var(--cyan);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.form-note a:hover { color: #a5f3fc; }
 
 /* Footer */
 .footer { padding: 70px 0 40px; }
